@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">BT1-2</string>
+    <string name="thucovu">Thú có vú</string>
+    <string name="chim">Chim</string>
+    <string name="cá">Cá</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
