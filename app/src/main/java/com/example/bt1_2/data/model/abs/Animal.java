@@ -1,9 +1,12 @@
 package com.example.bt1_2.data.model.abs;
+
+import java.io.Serializable;
+
 /*
 10-02-2020
 code by nguyen xuan nam
  */
-public abstract class Animal {
+public abstract class Animal implements Serializable {
     /*
     property class
      */
@@ -25,6 +28,9 @@ public abstract class Animal {
     public abstract void setAnimalEat();
     public abstract void setHuntForm();
     public abstract void setReproduction();
+    public String getSize(){
+        return String.valueOf(height)+" X "+String.valueOf(width);
+    }
 
     /*
     constructor class

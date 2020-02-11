@@ -1,31 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView android:layout_height="100dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="10dp"
-    android:elevation="10dp"
+<LinearLayout android:layout_height="132dp"
     android:layout_width="match_parent"
+    android:padding="16dp"
+    android:background="@drawable/custom_linearlayout"
+    android:layout_marginBottom="10dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        android:padding="16dp"
+    <androidx.cardview.widget.CardView
+        android:layout_height="100dp"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:cardCornerRadius="10dp"
+        android:elevation="10dp"
         android:layout_width="match_parent"
-        android:layout_height="100dp">
-        <ImageView
-            android:id="@+id/img_animal"
-            android:src="@drawable/img_arowana"
-            android:scaleType="fitXY"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
-        <TextView
-            android:id="@+id/txt_name_animal"
-            android:text="Arowana"
-            android:textSize="@dimen/_20sdp"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:gravity="center"
-            android:layout_height="match_parent"/>
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+        xmlns:android="http://schemas.android.com/apk/res/android">
+        <LinearLayout
+            android:id="@+id/ll_item"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:background="@drawable/custom_linearlayout"
+            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+            <ImageView
+                android:id="@+id/img_animal"
+                android:src="@drawable/img_arowana"
+                android:scaleType="fitXY"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
+            <TextView
+                android:id="@+id/txt_name_animal"
+                android:text="Arowana"
+                android:textSize="@dimen/_20sdp"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:gravity="center"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

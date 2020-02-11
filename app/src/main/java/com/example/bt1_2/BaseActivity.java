@@ -22,24 +22,24 @@ import com.example.bt1_2.data.model.entity.Tiger;
 import java.util.ArrayList;
 
 public class BaseActivity extends AppCompatActivity {
-    private ArrayList<AnimalEntity> animalArrayList=new ArrayList<>();
-    private ArrayList<AnimalEntity> favoriteAnimalList=new ArrayList<>();
+    public ArrayList<AnimalEntity> animalArrayList=new ArrayList<>();
+    public ArrayList<AnimalEntity> favoriteAnimalList=new ArrayList<>();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initArrayListAnimal();
     }
     public void initArrayListAnimal(){
-        animalArrayList.add(new AnimalEntity(new Snake(),R.drawable.img_snake));
-        animalArrayList.add(new AnimalEntity(new Parrots(),R.drawable.img_parrots));
-        animalArrayList.add(new AnimalEntity(new Tiger(),R.drawable.img_tiger));
-        animalArrayList.add(new AnimalEntity(new Lion(),R.drawable.img_lion));
-        animalArrayList.add(new AnimalEntity(new Carp(),R.drawable.img_carp));
-        animalArrayList.add(new AnimalEntity(new Arowana(),R.drawable.img_arowana));
-        animalArrayList.add(new AnimalEntity(new Monkey(),R.drawable.img_monkey));
-        animalArrayList.add(new AnimalEntity(new Giraffe(),R.drawable.img_giraffe));
-        animalArrayList.add(new AnimalEntity(new Python(),R.drawable.img_python));
-        animalArrayList.add(new AnimalEntity(new Eagle(),R.drawable.img_eagle));
+        animalArrayList.add(new AnimalEntity(new Snake(),R.drawable.img_snake,4));
+        animalArrayList.add(new AnimalEntity(new Parrots(),R.drawable.img_parrots,2));
+        animalArrayList.add(new AnimalEntity(new Tiger(),R.drawable.img_tiger,1));
+        animalArrayList.add(new AnimalEntity(new Lion(),R.drawable.img_lion,1));
+        animalArrayList.add(new AnimalEntity(new Carp(),R.drawable.img_carp,3));
+        animalArrayList.add(new AnimalEntity(new Arowana(),R.drawable.img_arowana,3));
+        animalArrayList.add(new AnimalEntity(new Monkey(),R.drawable.img_monkey,1));
+        animalArrayList.add(new AnimalEntity(new Giraffe(),R.drawable.img_giraffe,1));
+        animalArrayList.add(new AnimalEntity(new Python(),R.drawable.img_python,4));
+        animalArrayList.add(new AnimalEntity(new Eagle(),R.drawable.img_eagle,2));
 
     }
 }
