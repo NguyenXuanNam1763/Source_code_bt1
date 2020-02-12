@@ -8,11 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.bt1_2.R;
 import com.example.bt1_2.data.model.abs.Animal;
 import com.example.bt1_2.data.model.entity.AnimalEntity;
@@ -43,8 +45,8 @@ public class FafRecyclerAdapter extends RecyclerView.Adapter<FafRecyclerAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull FafViewHolder holder, int position) {
-        holder.txt_Animal.setText(favoriteList.get(position).getAnimal().getAnimalName());
-        holder.img_Animal.setImageResource(favoriteList.get(position).getImage());
+        holder.txt_Animal.setText(favoriteList.get(position).getNameAnimal());
+        Glide.with(context).load(favoriteList.get(position).getImg_Url()).into(holder.img_Animal);
         if (vitri == position) {
             holder.ll_item.setBackgroundColor(Color.GRAY);
             animalEntitiesDel.add(favoriteList.get(position));
@@ -62,13 +64,13 @@ public class FafRecyclerAdapter extends RecyclerView.Adapter<FafRecyclerAdapter.
     public class FafViewHolder extends RecyclerView.ViewHolder {
         public ImageView img_Animal;
         public TextView txt_Animal;
-        public LinearLayout ll_item;
+        public RelativeLayout ll_item;
 
         public FafViewHolder(@NonNull View itemView) {
             super(itemView);
             img_Animal = (ImageView) itemView.findViewById(R.id.img_animal);
             txt_Animal = (TextView) itemView.findViewById(R.id.txt_name_animal);
-            ll_item = (LinearLayout) itemView.findViewById(R.id.ll_item);
+            ll_item = (RelativeLayout) itemView.findViewById(R.id.ll_item);
             ll_item.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {

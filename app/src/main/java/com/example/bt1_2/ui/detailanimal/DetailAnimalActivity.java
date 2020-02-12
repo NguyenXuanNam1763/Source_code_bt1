@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 
+import com.bumptech.glide.Glide;
 import com.example.bt1_2.BaseActivity;
 import com.example.bt1_2.R;
 import com.example.bt1_2.data.model.entity.AnimalEntity;
@@ -57,9 +58,9 @@ public class DetailAnimalActivity extends BaseActivity {
         fabtn_favorite=(FloatingActionButton) findViewById(R.id.fab_favotite);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_back);
-        toolbar.setTitle(animalEntity.getAnimal().getAnimalName());
-        imgAnimal.setImageResource(animalEntity.getImage());
-        txtSize.setText(animalEntity.getAnimal().getSize());
-        txtAge.setText(String.valueOf(animalEntity.getAnimal().getAnimalAge()));
+        toolbar.setTitle(animalEntity.getNameAnimal());
+        Glide.with(DetailAnimalActivity.this).load(animalEntity.getImg_Url()).into(imgAnimal);
+        txtSize.setText(animalEntity.getSizeAnimal());
+        txtAge.setText("No data!");
     }
 }

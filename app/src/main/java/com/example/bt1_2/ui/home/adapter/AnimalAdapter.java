@@ -1,64 +1,58 @@
 package com.example.bt1_2.ui.home.adapter;
 
 import android.content.Context;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.bt1_2.R;
 import com.example.bt1_2.data.model.entity.AnimalEntity;
 import com.example.bt1_2.ui.home.Interface.CallBackAdapter;
 
 import java.util.ArrayList;
 
-public class GafRecyclerAdapter extends RecyclerView.Adapter<GafRecyclerAdapter.GafViewHolder> {
+public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.GafViewHolder> {
 
     private Context context;
     private ArrayList<AnimalEntity> animalEntityArrayList;
     private CallBackAdapter callBackAdapter;
     private ArrayList<AnimalEntity> animalGafList = new ArrayList<>();
+    private int species;
+    private int layout_Item;
 
-    public GafRecyclerAdapter(Context context, ArrayList<AnimalEntity> animalEntityArrayList, CallBackAdapter callBackAdapter) {
+    public AnimalAdapter(Context context, ArrayList<AnimalEntity> animalEntityArrayList, CallBackAdapter callBackAdapter, int species, int layout_Item) {
         this.context = context;
         this.animalEntityArrayList = animalEntityArrayList;
         this.callBackAdapter = callBackAdapter;
+        this.species=species;
+        this.layout_Item=layout_Item;
     }
 
     @NonNull
     @Override
     public GafViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.item_recycleview, parent, false);
+        View view = inflater.inflate(layout_Item, parent, false);
 
         return new GafViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull GafViewHolder holder, int position) {
-        Log.d("socon", animalEntityArrayList.get(position).getAnimal().getAnimalName());
-        holder.txt_Animal.setText(animalGafList.get(position).getAnimal().getAnimalName());
-        holder.img_Animal.setImageResource(animalGafList.get(position).getImage());
+        holder.txt_Animal.setText(animalGafList.get(position).getNameAnimal());
+        Glide.with(context).load(animalGafList.get(position).getImg_Url()).into(holder.img_Animal);
     }
 
     @Override
     public int getItemCount() {
-        int size = 0;
-        for (int i = 0; i < animalEntityArrayList.size(); i++) {
-            if (animalEntityArrayList.get(i).getClassify() == 1) {
-                animalGafList.add(animalEntityArrayList.get(i));
-                size += 1;
-                Log.d("size", String.valueOf(size));
-            }
-        }
-        return size;
+        return getCount(species);
     }
 
     public class GafViewHolder extends RecyclerView.ViewHolder {
@@ -82,5 +76,17 @@ public class GafRecyclerAdapter extends RecyclerView.Adapter<GafRecyclerAdapter.
                 }
             });
         }
+    }
+    public int getCount(int species){
+        animalGafList.clear();
+        int size = 0;
+        for (int i = 0; i < animalEntityArrayList.size(); i++) {
+            if (animalEntityArrayList.get(i).getSpecies()==species) {
+                animalGafList.add(animalEntityArrayList.get(i));
+                size += 1;
+                Log.d("size", String.valueOf(size));
+            }
+        }
+        return size;
     }
 }

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -60,14 +61,15 @@ public class FavoriteAnimalFragment extends Fragment implements CallBackFavorite
                         if(animalEntitiesDel.size()>0){
                             while(i>=0){
                                 for(int j=0;j<animalEntitiesDel.size();j++){
-                                    if(animaFavoriteList.get(i).getAnimal().getAnimalName().equals(animalEntitiesDel.get(j).getAnimal().getAnimalName())){
+                                    if(animaFavoriteList.get(i).getAnimal_Id()==(animalEntitiesDel.get(j).getAnimal_Id())){
                                         animaFavoriteList.remove(i);
                                     }
                                 }
                                 i--;
+                                Toast.makeText(getContext(),"Delete complete!",Toast.LENGTH_SHORT).show();
                             }
                             fafRecyclerAdapter.notifyDataSetChanged();
-                            Toast.makeText(getContext(),"Delete complete!",Toast.LENGTH_SHORT).show();
+
                         }
 
                         break;
@@ -75,6 +77,14 @@ public class FavoriteAnimalFragment extends Fragment implements CallBackFavorite
                 return false;
             }
         });
+        Runnable runnable=new Runnable() {
+            @Override
+            public void run() {
+                fafRecyclerAdapter.notifyDataSetChanged();
+            }
+        };
+        Handler handler=new Handler();
+        handler.postDelayed(runnable,1000);
         return view;
     }
 

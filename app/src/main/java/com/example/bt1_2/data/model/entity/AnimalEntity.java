@@ -5,37 +5,57 @@ import com.example.bt1_2.data.model.abs.Animal;
 import java.io.Serializable;
 
 public class AnimalEntity implements Serializable {
-    private Animal animal;
-    private int image;
-    private int classify;
+    private int animal_Id;
+    private int species;
+    private String nameAnimal;
+    private String sizeAnimal;
+    private String img_Url;
 
-    public AnimalEntity(Animal animal, int image,int classify) {
-        this.animal = animal;
-        this.image = image;
-        this.classify=classify;
+    public AnimalEntity(int animal_Id, int species, String nameAnimal, String sizeAnimal, String img_Url) {
+        this.animal_Id = animal_Id;
+        this.species = species;
+        this.nameAnimal = nameAnimal;
+        this.sizeAnimal = sizeAnimal;
+        this.img_Url = img_Url;
     }
 
-    public Animal getAnimal() {
-        return animal;
+    public int getAnimal_Id() {
+        return animal_Id;
     }
 
-    public void setAnimal(Animal animal) {
-        this.animal = animal;
+    public void setAnimal_Id(int animal_Id) {
+        this.animal_Id = animal_Id;
     }
 
-    public int getImage() {
-        return image;
+    public int getSpecies() {
+        return species;
     }
 
-    public void setImage(int image) {
-        this.image = image;
+    public void setSpecies(int species) {
+        this.species = species;
     }
 
-    public int getClassify() {
-        return classify;
+    public String getNameAnimal() {
+        return nameAnimal;
     }
 
-    public void setClassify(int classify) {
-        this.classify = classify;
+    public void setNameAnimal(String nameAnimal) {
+        this.nameAnimal = nameAnimal;
+    }
+
+    public String getSizeAnimal() {
+        return sizeAnimal;
+    }
+
+    public void setSizeAnimal(String sizeAnimal) {
+        this.sizeAnimal = sizeAnimal;
+    }
+
+    public String getImg_Url() {
+        return img_Url;
+    }
+
+    public void setImg_Url(String img_Url) {
+        this.img_Url = img_Url;
     }
 }
