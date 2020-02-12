@@ -56,7 +56,7 @@ public class HomeModel {
                             String name=jsonObject.getString("name");
                             String sizeAnimal=jsonObject.getString("size");
                             String img_url=jsonObject.getString("img_url");
-                            animalEntityArrayList.add(new AnimalEntity(id,species,name,sizeAnimal,img_url));
+                            animalEntityArrayList.add(new AnimalEntity(id,species,name,sizeAnimal,img_url,0));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

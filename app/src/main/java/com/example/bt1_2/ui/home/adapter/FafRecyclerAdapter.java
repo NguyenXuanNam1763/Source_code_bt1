@@ -24,6 +24,7 @@ import java.util.ArrayList;
 
 public class FafRecyclerAdapter extends RecyclerView.Adapter<FafRecyclerAdapter.FafViewHolder> {
     ArrayList<AnimalEntity> favoriteList;
+    ArrayList<AnimalEntity> getFavoriteList=new ArrayList<>();
     Context context;
     CallBackFavorite callBackFavorite;
     ArrayList<AnimalEntity> animalEntitiesDel = new ArrayList<>();
@@ -45,38 +46,47 @@ public class FafRecyclerAdapter extends RecyclerView.Adapter<FafRecyclerAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull FafViewHolder holder, int position) {
-        holder.txt_Animal.setText(favoriteList.get(position).getNameAnimal());
-        Glide.with(context).load(favoriteList.get(position).getImg_Url()).into(holder.img_Animal);
+        holder.txt_Animal.setText(getFavoriteList.get(position).getNameAnimal());
+        Glide.with(context).load(getFavoriteList.get(position).getImg_Url()).into(holder.img_Animal);
         if (vitri == position) {
-            holder.ll_item.setBackgroundColor(Color.GRAY);
+            holder.img_Opacity.setBackgroundResource(R.color.colorgay);
             animalEntitiesDel.add(favoriteList.get(position));
             callBackFavorite.getArrayDel(animalEntitiesDel);
-            vitri=-1;
             Log.d("iii", String.valueOf(animalEntitiesDel.size()));
         }
     }
 
     @Override
     public int getItemCount() {
-        return favoriteList.size();
+        getFavoriteList.clear();
+        int size = 0;
+        for (int i = 0; i < favoriteList.size(); i++) {
+            if (favoriteList.get(i).getLike() == 1){
+                getFavoriteList.add(favoriteList.get(i));
+                size+=1;
+            }
+        }
+        return size;
     }
 
     public class FafViewHolder extends RecyclerView.ViewHolder {
         public ImageView img_Animal;
         public TextView txt_Animal;
         public RelativeLayout ll_item;
+        public ImageView img_Opacity;
 
         public FafViewHolder(@NonNull View itemView) {
             super(itemView);
             img_Animal = (ImageView) itemView.findViewById(R.id.img_animal);
             txt_Animal = (TextView) itemView.findViewById(R.id.txt_name_animal);
+            img_Opacity = (ImageView) itemView.findViewById(R.id.img_opacity);
             ll_item = (RelativeLayout) itemView.findViewById(R.id.ll_item);
             ll_item.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
                     vitri = getPosition();
                     notifyDataSetChanged();
-//                    animalEntitiesDel.add(favoriteList.get(getPosition()));
+                    animalEntitiesDel.add(getFavoriteList.get(getPosition()));
                     return false;
                 }
             });

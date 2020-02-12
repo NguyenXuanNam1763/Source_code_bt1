@@ -25,7 +25,7 @@ import com.example.bt1_2.ui.detailanimal.DetailAnimalActivity;
 import com.example.bt1_2.ui.home.Fragment.FavoriteAnimalFragment;
 import com.example.bt1_2.ui.home.Fragment.AnimalFragment;
 import com.example.bt1_2.ui.home.Interface.CallBackActivity;
-import com.example.bt1_2.ui.home.Interface.CallBackFavoriteActivity;
+import com.example.bt1_2.ui.home.Interface.CallBackBanner;
 import com.example.bt1_2.ui.home.Interface.HomePresenter;
 import com.example.bt1_2.ui.home.adapter.BannerAdapter;
 import com.example.bt1_2.ui.home.adapter.TabLayoutAdapter;
@@ -33,7 +33,7 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 
-public class HomeActivity extends BaseActivity implements CallBackActivity, CallBackFavoriteActivity, HomePresenter {
+public class HomeActivity extends BaseActivity implements CallBackActivity, HomePresenter,CallBackBanner {
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -65,9 +65,13 @@ public class HomeActivity extends BaseActivity implements CallBackActivity, Call
         linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
         rcv_Banner.setLayoutManager(linearLayoutManager);
-        bannerAdapter = new BannerAdapter(bannerArrayList, this);
+        bannerAdapter = new BannerAdapter(bannerArrayList, this,this);
         rcv_Banner.setAdapter(bannerAdapter);
         bannerAdapter.notifyDataSetChanged();
+        bird = new AnimalFragment(animalArrayList, this, R.layout.fragment_animal, 3, R.layout.item_recycleview);
+        fish = new AnimalFragment(animalArrayList, this, R.layout.fragment_animal, 4, R.layout.item_recycleview);
+        manmal = new AnimalFragment(animalArrayList, this, R.layout.fragment_animal, 2, R.layout.item_recycleview);
+        favoriteAnimalFragment = new FavoriteAnimalFragment(animalArrayList);
     }
 
     private void addtab(ViewPager viewPager) {
@@ -90,21 +94,17 @@ public class HomeActivity extends BaseActivity implements CallBackActivity, Call
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == code_detail && resultCode == RESULT_OK && data != null) {
             AnimalEntity animalEntity = (AnimalEntity) data.getSerializableExtra("Animal");
-            favoriteAnimalList.add(animalEntity);
-            Log.d("dolon", String.valueOf(favoriteAnimalList.size()));
+            if(animalEntity!=null){
+                for (int i = 0; i < animalArrayList.size(); i++) {
+                    if (animalArrayList.get(i).getAnimal_Id() == animalEntity.getAnimal_Id())
+                        animalArrayList.get(i).setLike(animalEntity.getLike());
+                }
+            }
+
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    @Override
-    public void getList(ArrayList<AnimalEntity> entityArrayList) {
-        int i = favoriteAnimalList.size() - 1;
-        while (i >= 0) {
-            for (int j = 0; j < entityArrayList.size(); j++) {
-            }
-            i--;
-        }
-    }
 
     public void checkConnection() {
         ConnectivityManager manager = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -120,10 +120,6 @@ public class HomeActivity extends BaseActivity implements CallBackActivity, Call
                 homeModel.getData(URL_BIRD_ANIMALS, "animal");
                 homeModel.getData(URL_FISH_ANIMALS, "animal");
                 homeModel.getData(URL_REPTILE_ANIMALS, "animal");
-                bird = new AnimalFragment(animalArrayList,this,R.layout.fragment_animal,3,R.layout.item_recycleview);
-                fish = new AnimalFragment(animalArrayList,this,R.layout.fragment_animal,4,R.layout.item_recycleview);
-                manmal = new AnimalFragment(animalArrayList, this,R.layout.fragment_animal,2,R.layout.item_recycleview);
-                favoriteAnimalFragment = new FavoriteAnimalFragment(favoriteAnimalList, this);
                 addtab(viewPager);
                 tabLayout.setupWithViewPager(viewPager);
                 showApiBanner();
@@ -145,7 +141,7 @@ public class HomeActivity extends BaseActivity implements CallBackActivity, Call
             builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-
+                    finish();
                 }
             });
             builder.show();
@@ -170,29 +166,7 @@ public class HomeActivity extends BaseActivity implements CallBackActivity, Call
         for (int i = 0; i < arrayList.size(); i++) {
             animalArrayList.add(arrayList.get(i));
         }
-
-//        int size=animalArrayList.size();
         Log.d("ddd", String.valueOf(animalArrayList.size()) + "--------" + String.valueOf(arrayList.size()));
-//        if (size == 0) {
-//            for (int j = 0; j < arrayList.size(); j++) {
-//                animalArrayList.add(arrayList.get(j));
-//            }
-//            Log.d("bbb","th1");
-//        } else if (size > 0) {
-//            int i=0;
-//            while (i <= size - 1) {
-//                for (int j = 0; j < arrayList.size(); j++) {
-//                    if(animalArrayList.get(i).getAnimal_Id()==arrayList.get(j).getAnimal_Id())
-//                        break;
-//                    if (animalArrayList.get(i).getAnimal_Id() != arrayList.get(j).getAnimal_Id()){
-//                        animalArrayList.add(arrayList.get(j));
-//                    }
-//                }
-//                i++;
-//            }
-//            Log.d("bbb","th2");
-//        }
-//        filter();
     }
 
     public void autoSlide() {
@@ -218,16 +192,16 @@ public class HomeActivity extends BaseActivity implements CallBackActivity, Call
         handler.postDelayed(runnable, 2000);
     }
 
-    public void filter() {
-        int size = animalArrayList.size();
-        int i = 0;
-        while (i < size) {
-            for (int j = 1; j < size; j++) {
-                if (animalArrayList.get(i).getAnimal_Id() == animalArrayList.get(j).getAnimal_Id())
-                    animalArrayList.remove(j);
+    @Override
+    public void getList(Banner banner) {
+        for(int i=0;i<animalArrayList.size();i++){
+            if(animalArrayList.get(i).getAnimal_Id()==banner.getIdBanner()){
+                Intent intent=new Intent(HomeActivity.this,DetailAnimalActivity.class);
+                intent.putExtra("Animal",animalArrayList.get(i));
+                startActivityForResult(intent,code_detail);
+                break;
             }
-            i++;
         }
-        Log.d("sizearray", String.valueOf(animalArrayList.size()));
+
     }
 }

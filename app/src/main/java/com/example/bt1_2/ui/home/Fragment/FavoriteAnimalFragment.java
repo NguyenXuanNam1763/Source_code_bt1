@@ -19,7 +19,7 @@ import android.widget.Toast;
 import com.example.bt1_2.R;
 import com.example.bt1_2.data.model.entity.AnimalEntity;
 import com.example.bt1_2.ui.home.Interface.CallBackFavorite;
-import com.example.bt1_2.ui.home.Interface.CallBackFavoriteActivity;
+import com.example.bt1_2.ui.home.Interface.CallBackBanner;
 import com.example.bt1_2.ui.home.adapter.FafRecyclerAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -32,13 +32,11 @@ public class FavoriteAnimalFragment extends Fragment implements CallBackFavorite
     RecyclerView rcvFavorite;
     ArrayList<AnimalEntity> animaFavoriteList;
     ArrayList<AnimalEntity> animalEntitiesDel=new ArrayList<>();
-    CallBackFavoriteActivity callBackFavoriteActivity;
     FafRecyclerAdapter fafRecyclerAdapter;
     BottomNavigationView navigationView;
 
-    public FavoriteAnimalFragment(ArrayList<AnimalEntity> animaFavoriteList,CallBackFavoriteActivity callBackFavoriteActivity) {
+    public FavoriteAnimalFragment(ArrayList<AnimalEntity> animaFavoriteList) {
         this.animaFavoriteList=animaFavoriteList;
-        this.callBackFavoriteActivity=callBackFavoriteActivity;
     }
 
     @Override
@@ -62,16 +60,14 @@ public class FavoriteAnimalFragment extends Fragment implements CallBackFavorite
                             while(i>=0){
                                 for(int j=0;j<animalEntitiesDel.size();j++){
                                     if(animaFavoriteList.get(i).getAnimal_Id()==(animalEntitiesDel.get(j).getAnimal_Id())){
-                                        animaFavoriteList.remove(i);
+                                        animaFavoriteList.get(i).setLike(0);
                                     }
                                 }
                                 i--;
                                 Toast.makeText(getContext(),"Delete complete!",Toast.LENGTH_SHORT).show();
                             }
                             fafRecyclerAdapter.notifyDataSetChanged();
-
                         }
-
                         break;
                 }
                 return false;
@@ -95,7 +91,6 @@ public class FavoriteAnimalFragment extends Fragment implements CallBackFavorite
             animalEntitiesDel.add(animalEntitiesList.get(i));
         }
         Log.d("sizelist",String.valueOf(animalEntitiesDel.size()));
-        callBackFavoriteActivity.getList(animalEntitiesList);
     }
 
 }

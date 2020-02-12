@@ -32,11 +32,18 @@ public class DetailAnimalActivity extends BaseActivity {
         Intent intent=getIntent();
         animalEntity= (AnimalEntity) intent.getSerializableExtra("Animal");
         mapping();
+        Log.d("convat",animalEntity.getNameAnimal()+"---------"+animalEntity.getAnimal_Id());
         fabtn_favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("davao","daca");
-                Toast.makeText(DetailAnimalActivity.this,"Like",Toast.LENGTH_SHORT).show();
+                if(animalEntity.getLike()==0){
+                    fabtn_favorite.setImageResource(R.drawable.ic_favorite);
+                    animalEntity.setLike(1);
+                }
+                else{
+                    fabtn_favorite.setImageResource(R.drawable.ic_dislike);
+                    animalEntity.setLike(0);
+                }
                 Intent it=new Intent(DetailAnimalActivity.this, HomeActivity.class);
                 it.putExtra("Animal",animalEntity);
                 setResult(RESULT_OK,it);
@@ -62,5 +69,11 @@ public class DetailAnimalActivity extends BaseActivity {
         Glide.with(DetailAnimalActivity.this).load(animalEntity.getImg_Url()).into(imgAnimal);
         txtSize.setText(animalEntity.getSizeAnimal());
         txtAge.setText("No data!");
+        if(animalEntity.getLike()==0){
+            fabtn_favorite.setImageResource(R.drawable.ic_dislike);
+        }
+        else{
+            fabtn_favorite.setImageResource(R.drawable.ic_favorite);
+        }
     }
 }

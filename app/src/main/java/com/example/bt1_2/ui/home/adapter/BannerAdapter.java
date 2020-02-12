@@ -12,16 +12,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.bt1_2.R;
 import com.example.bt1_2.data.model.entity.Banner;
+import com.example.bt1_2.ui.home.Interface.CallBackBanner;
 
 import java.util.ArrayList;
 
 public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.BannerViewHolder> {
     ArrayList<Banner> bannerArrayList;
     Context context;
+    CallBackBanner callBackBanner;
 
-    public BannerAdapter(ArrayList<Banner> bannerArrayList, Context context) {
+    public BannerAdapter(ArrayList<Banner> bannerArrayList, Context context,CallBackBanner callBackBanner) {
         this.bannerArrayList = bannerArrayList;
         this.context = context;
+        this.callBackBanner=callBackBanner;
     }
 
     @NonNull
@@ -34,10 +37,17 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.BannerView
 
     @Override
     public void onBindViewHolder(@NonNull BannerViewHolder holder, int position) {
-        Banner banner=bannerArrayList.get(position);
+        final Banner banner=bannerArrayList.get(position);
         if(banner!=null){
             Glide.with(context).load(banner.getImg_url()).into(holder.img_Banner);
+            holder.img_Banner.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    callBackBanner.getList(banner);
+                }
+            });
         }
+
     }
 
     @Override

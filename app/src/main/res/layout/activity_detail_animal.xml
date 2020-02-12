@@ -93,7 +93,7 @@
     </androidx.core.widget.NestedScrollView>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_favotite"
-        android:src="@drawable/ic_favorite"
+        android:src="@drawable/ic_dislike"
         app:layout_anchor="@id/abl_detail_animal"
         app:layout_anchorGravity="bottom|right|center"
         android:layout_width="wrap_content"

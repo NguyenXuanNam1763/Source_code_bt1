@@ -33,7 +33,6 @@ import java.util.ArrayList;
 
 public class BaseActivity extends AppCompatActivity {
     public ArrayList<AnimalEntity> animalArrayList=new ArrayList<>();
-    public ArrayList<AnimalEntity> favoriteAnimalList=new ArrayList<>();
     public ArrayList<Banner> bannerArrayList=new ArrayList<>();
     public RequestQueue requestQueue;
     public static final String URL_BANNER_ANIMALS="http://git.segu.vn:89/snippets/70/raw";

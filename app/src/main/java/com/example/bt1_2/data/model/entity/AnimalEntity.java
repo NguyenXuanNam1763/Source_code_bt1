@@ -10,13 +10,15 @@ public class AnimalEntity implements Serializable {
     private String nameAnimal;
     private String sizeAnimal;
     private String img_Url;
+    private int like;
 
-    public AnimalEntity(int animal_Id, int species, String nameAnimal, String sizeAnimal, String img_Url) {
+    public AnimalEntity(int animal_Id, int species, String nameAnimal, String sizeAnimal, String img_Url,int like) {
         this.animal_Id = animal_Id;
         this.species = species;
         this.nameAnimal = nameAnimal;
         this.sizeAnimal = sizeAnimal;
         this.img_Url = img_Url;
+        this.like=like;
     }
 
     public int getAnimal_Id() {
@@ -57,5 +59,13 @@ public class AnimalEntity implements Serializable {
 
     public void setImg_Url(String img_Url) {
         this.img_Url = img_Url;
+    }
+
+    public int getLike() {
+        return like;
+    }
+
+    public void setLike(int like) {
+        this.like = like;
     }
 }

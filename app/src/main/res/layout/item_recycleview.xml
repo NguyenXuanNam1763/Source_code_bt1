@@ -12,27 +12,37 @@
         android:elevation="10dp"
         android:layout_width="match_parent"
         xmlns:android="http://schemas.android.com/apk/res/android">
-        <RelativeLayout
-            android:id="@+id/ll_item"
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:background="@drawable/custom_linearlayout"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+            <RelativeLayout
+                android:id="@+id/ll_item"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:background="@drawable/custom_linearlayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/img_animal"
+                    android:src="@drawable/img_arowana"
+                    android:scaleType="fitXY"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+                <TextView
+                    android:id="@+id/txt_name_animal"
+                    android:text="Arowana"
+                    android:textColor="@color/colorWhite"
+                    android:layout_alignParentBottom="true"
+                    android:textSize="@dimen/_20sdp"
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:layout_height="50dp"/>
+            </RelativeLayout>
             <ImageView
-                android:id="@+id/img_animal"
-                android:src="@drawable/img_arowana"
-                android:scaleType="fitXY"
+                android:id="@+id/img_opacity"
+                android:alpha="0.3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
-            <TextView
-                android:id="@+id/txt_name_animal"
-                android:text="Arowana"
-                android:textColor="@color/colorWhite"
-                android:layout_alignParentBottom="true"
-                android:textSize="@dimen/_20sdp"
-                android:layout_width="match_parent"
-                android:gravity="center"
-                android:layout_height="50dp"/>
-        </RelativeLayout>
+        </FrameLayout>
+
     </androidx.cardview.widget.CardView>
 </LinearLayout>
